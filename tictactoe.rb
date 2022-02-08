@@ -10,6 +10,8 @@ end
 
 # Its a player
 class Player
+  attr_reader :name, :team
+
   def initialize(team)
     puts "what is the name of the #{team} player?"
     @name = gets.chomp
