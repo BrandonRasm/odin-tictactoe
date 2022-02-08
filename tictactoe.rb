@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# It tic. It tacs. It toes.
+# General game state control. Turns and player info
 class TicTacToe
   def initialize
     @p1 = Player.new('X')
@@ -8,7 +8,7 @@ class TicTacToe
   end
 end
 
-# Its a player
+# Player Info class
 class Player
   attr_reader :name, :team
 
@@ -23,7 +23,7 @@ class Player
   end
 end
 
-# Board Class
+# Holds the state of the board and the logic to determine outcomes
 class Board
   def initialize; end
 end
