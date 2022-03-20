@@ -46,11 +46,11 @@ class Board
   end
 
   def get_input(current_player)
-    puts "Which column would #{current_player.name} like to place in(left to right:0,1, or 2)"
+    puts "Which volumn would #{current_player.name} like to place in(left to right:0,1, or 2)"
     column = gets.chomp.to_i
     puts "Which row would #{current_player.name} like to place in(top to bottom:0,1, or 2)"
     row = gets.chomp.to_i
-    [column, row]
+    [row, column]
   end
 
   def play_move(current_player)
@@ -61,6 +61,32 @@ class Board
     end
     @board[move[0]][move[1]] = current_player.team
     display_board
+
+    check_win(move, current_player.team)
+  end
+
+  def check_win(move, current_team)
+    player_won = true
+
+    # checks vertical line
+    @board[move[0]].each do |item|
+      player_won = false if item != current_team
+    end
+    return player_won if player_won
+
+    # checks horizontal line
+    @board.each do |item|
+      player_won = false if item[move[1]] != current_team
+    end
+
+    return player_won if player_won
+
+    # check diagonals
+    player_won = true if @board[0][0] == @board[1][1] && @board[1][1] == @board[2][2]
+
+    player_won = true if @board[0][2] == @board[1][1] && @board[1][1] == @board[2][0]
+
+    player_won
   end
 end
 
