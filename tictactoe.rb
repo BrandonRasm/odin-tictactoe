@@ -7,6 +7,8 @@ class TicTacToe
     @p1 = Player.new('X')
     @p2 = Player.new('O')
   end
+
+
 end
 
 # Player Info class
@@ -38,6 +40,14 @@ class Board
       puts "#{row[0]}|#{row[1]}|#{row[2]}"
       counter += 1
     end
+  end
+
+  def get_input(current_team)
+    puts "Which column would #{current_team} like to place in(left to right:1,2, or 3)"
+    gets column
+    puts "Which row would #{current_team} like to place in(top to bottom:1,2, or 3)"
+    gets row
+    [column, row]
   end
 end
 
