@@ -8,7 +8,10 @@ class TicTacToe
     @p2 = Player.new('O')
   end
 
-
+  def play_game
+    round = 1
+    @board.play_move(@p1)
+  end
 end
 
 # Player Info class
@@ -42,13 +45,24 @@ class Board
     end
   end
 
-  def get_input(current_team)
-    puts "Which column would #{current_team} like to place in(left to right:1,2, or 3)"
-    gets column
-    puts "Which row would #{current_team} like to place in(top to bottom:1,2, or 3)"
-    gets row
+  def get_input(current_player)
+    puts "Which column would #{current_player.name} like to place in(left to right:0,1, or 2)"
+    column = gets.chomp.to_i
+    puts "Which row would #{current_player.name} like to place in(top to bottom:0,1, or 2)"
+    row = gets.chomp.to_i
     [column, row]
+  end
+
+  def play_move(current_player)
+    # gets inputs and updates the board when a proper input is found
+    while true
+      move = get_input(current_player)
+      break if @board[move[0]][move[1]] == ' '
+    end
+    @board[move[0]][move[1]] = current_player.team
+    display_board
   end
 end
 
 x = TicTacToe.new
+x.play_game
