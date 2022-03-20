@@ -9,8 +9,14 @@ class TicTacToe
   end
 
   def play_game
-    round = 1
-    @board.play_move(@p1)
+    player_won = false
+    until player_won
+      player_won = @board.play_move(@p1)
+      break if player_won
+
+      player_won = @board.play_move(@p2)
+    end
+    puts 'Game Over!'
   end
 end
 
@@ -68,13 +74,14 @@ class Board
   def check_win(move, current_team)
     player_won = true
 
-    # checks vertical line
+    # checks horizontal line
     @board[move[0]].each do |item|
       player_won = false if item != current_team
     end
     return player_won if player_won
 
-    # checks horizontal line
+    player_won = true
+    # checks vertical line
     @board.each do |item|
       player_won = false if item[move[1]] != current_team
     end
@@ -82,10 +89,11 @@ class Board
     return player_won if player_won
 
     # check diagonals
-    player_won = true if @board[0][0] == @board[1][1] && @board[1][1] == @board[2][2]
+    if @board[1][1] == current_team
+      player_won = true if @board[0][0] == @board[1][1] && @board[1][1] == @board[2][2]
 
-    player_won = true if @board[0][2] == @board[1][1] && @board[1][1] == @board[2][0]
-
+      player_won = true if @board[0][2] == @board[1][1] && @board[1][1] == @board[2][0]
+    end
     player_won
   end
 end
